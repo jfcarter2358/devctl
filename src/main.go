@@ -32,8 +32,8 @@ func main() {
 	switch command {
 	case "init":
 		doInit()
-	case "run":
-		doRun()
+	case "up":
+		doUp()
 	case "shell":
 		doShell()
 	case "version":
@@ -52,54 +52,56 @@ func printHelp(command string) {
 		printMainHelp()
 	case "init":
 		printInitHelp()
-	case "run":
-		printRunHelp()
+	case "up":
+		printUpHelp()
 	case "shell":
 		printShellHelp()
+	case "version":
+		printVersionHelp()
 	}
 }
 
 func printMainHelp() {
 	help := `usage: %v [options] command
-	options:
-		-h, --help      Show this help message and exit
-	arguments:
-		init        	Write out a template .devctl.json file
-		up        		Re-open this directory in the container defined in the .devctl.json file
-		shell           Spawn a shell in the running container associated with this directory
-		version         Show the devctl version and exit
+    options:
+        -h, --help      Show this help message and exit
+    arguments:
+        init            Write out a template .devctl.json file
+        up              Re-open this directory in the container defined in the .devctl.json file
+        shell           Spawn a shell in the running container associated with this directory
+        version         Show the devctl version and exit
 `
 	fmt.Printf(help, os.Args[0])
 }
 
 func printInitHelp() {
 	help := `usage: %v init [options]
-	options:
-		-h, --help      Show this help message and exit
+    options:
+        -h, --help      Show this help message and exit
 `
 	fmt.Printf(help, os.Args[0])
 }
 
-func printRunHelp() {
-	help := `usage: %v run [options]
-	options:
-		-h, --help      Show this help message and exit
+func printUpHelp() {
+	help := `usage: %v up [options]
+    options:
+        -h, --help      Show this help message and exit
 `
 	fmt.Printf(help, os.Args[0])
 }
 
 func printShellHelp() {
 	help := `usage: %v shell [options]
-	options:
-		-h, --help      Show this help message and exit
+    options:
+        -h, --help      Show this help message and exit
 `
 	fmt.Printf(help, os.Args[0])
 }
 
 func printVersionHelp() {
 	help := `usage: %v shell [options]
-	options:
-		-h, --help      Show this help message and exit
+    options:
+        -h, --help      Show this help message and exit
 `
 	fmt.Printf(help, os.Args[0])
 }
@@ -109,7 +111,7 @@ func doInit() {
 	os.Exit(0)
 }
 
-func doRun() {
+func doUp() {
 	c, err := container.LoadContainer()
 	if err != nil {
 		fmt.Println(err)
